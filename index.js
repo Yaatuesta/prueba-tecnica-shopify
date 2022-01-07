@@ -39,10 +39,11 @@ class ShopifyAPI {
         //parse the information to return all the data we need
         let arrayOfProducts = [];
         body.forEach((data) => {
+            let date = new Date(data.created_at);
             let fullObject = [{
                 price: data.variants[0].price ? data.variants[0].price : "0$",
                 status: data.status,
-                created_at: data.created_at,
+                created_at: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
             }]
             fullObject.unshift(data.title)
             arrayOfProducts.push(
