@@ -28,7 +28,6 @@ class ShopifyAPI {
 
             const json = await response.json();
             let parsed = this.parseInformation(json.products)
-            console.log(parsed)
             return parsed;
         } catch (error) {
             console.log(error)
@@ -41,7 +40,7 @@ class ShopifyAPI {
         let arrayOfProducts = [];
         body.forEach((data) => {
             let fullObject = [{
-                price: data.price ? data.price : "0$",
+                price: data.variants[0].price ? data.variants[0].price : "0$",
                 status: data.status,
                 created_at: data.created_at,
             }]
@@ -56,4 +55,4 @@ class ShopifyAPI {
 
 const shopify = new ShopifyAPI('https://devtestrecruitte.myshopify.com/admin/api/2021-07/products.json', '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', 'd156c699edcc98186dae8e6f9562d838');
 
-shopify.getProducts();
+console.log(await shopify.getProducts())
